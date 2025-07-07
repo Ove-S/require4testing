@@ -37,6 +37,10 @@
 	                    <p:outputLabel for="author" value="Autor" />
    						<p:inputText id="author" value="#{requirementController.tempRequirement.author}"  disabled="true" />
 	                </div>
+	                
+   	                <h:panelGroup rendered="#{not empty requirementController.tempRequirement.id}">
+						<ui:include src="testcase-table.xhtml" />
+					</h:panelGroup>
 	        		
 	            	<div style="margin-top: 2rem" >
 	            		<p:commandButton value="Zurück" icon="pi pi-arrow-circle-left" action="#{navigator.showRequirements}" immediate="true" />

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<link rel="icon" type="image/png" href="#{resource['images/require4testing-favicon.png']}" />
+		<h:outputStylesheet library="css" name="style.css" />
+		<h:outputText value="#{loginController.checkLogin()}"/>
+	    <title>Require4Testing Testfall-Details</title>
+	</h:head>
+	<h:body>
+		<header>
+			<ui:include src="navbar.xhtml"/>
+		</header>
+	    <main>
+	    	<h:form>
+	    		<p:card>
+		    		<f:facet name="header">
+				    	<h:outputText value="#{empty testcaseController.tempTestcase.id ? 'Neuer Testfall' : 'Testfall ID: ' += testcaseController.tempTestcase.id}" styleClass="card-header-text" />
+				    </f:facet>
+				          
+	                <div class="form-input">
+	                    <p:outputLabel for="id" value="ID" />
+   						<p:inputText id="id" value="#{testcaseController.tempTestcase.id}" placeholder="#{empty testcaseController.tempTestcase.id ? 'Wird vom System gesetzt' : ''}" disabled="true" />
+	                </div>
+
+	                <div class="form-input">
+	                    <p:outputLabel for="title" value="Titel" />
+   						<p:inputText id="title" value="#{testcaseController.tempTestcase.title}" disabled="#{!userController.currentUser.testcaseAuthor}" >
+   							<f:event type="postValidate" listener="#{testcaseController.postValidateTempTestcaseTitle}" />
+   						</p:inputText>
+	                </div>
+	                
+	                <div class="form-input">
+	                    <p:outputLabel for="author" value="Autor" />
+   						<p:inputText id="author" value="#{testcaseController.tempTestcase.author}"  disabled="true" />
+	                </div>
+	     
+	                <div class="form-input">
+	                    <p:outputLabel for="result" value="Ergebnis" />
+   						<p:inputText id="result" value="#{testcaseController.tempTestcase.result}"  disabled="true" >
+   							<f:event type="postValidate" listener="#{testcaseController.postValidateTempTestcaseResult}" />
+						</p:inputText>
+	                </div>
+	               
+	                <div class="form-input">
+	                    <p:outputLabel for="requirementId" value="Anforderungs ID" />
+   						<p:inputText id="requirementId" value="#{testcaseController.tempTestcase.requirement.id}"  disabled="true" />
+	                </div>
+	                
+   	                <div class="form-input">
+	                    <p:outputLabel for="testrunId" value="Testlauf ID" />
+   						<p:inputText id="testrunId" value=""  disabled="true" />
+	                </div>
+	            
+	            	<div style="margin-top: 2rem" >
+	            		<p:commandButton value="Zurück" icon="pi pi-arrow-circle-left" action="#{navigator.back}" immediate="true" />
+		            	<p:commandButton styleClass="save-btn" value="Speichern" icon="pi pi-check-circle" action="#{testcaseController.addTestcase}" rendered="#{userController.currentUser.testcaseAuthor}" />
+	            	</div>			            	
+	        	</p:card>
+	        </h:form>
+        </main>
+    </h:body>
+</html>

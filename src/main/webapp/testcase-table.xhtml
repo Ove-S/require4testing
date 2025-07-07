@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<p:dataTable
+		var="testcase"
+		value="#{facesContext.viewRoot.viewId eq '/requirement-details.xhtml'
+			? requirementController.tempRequirement.testcases
+			: facesContext.viewRoot.viewId eq '/testcases.xhtml'
+				? testcaseController.testcases
+				: ''}" 
+       	rowKey="#{testcase.id}" selectionMode="single" scrollable="true" 
+       	scrollHeight="300" scrollRows="20" liveScroll="true" >
+       	
+       	<f:facet name="header">
+            <h:panelGroup layout="block" style="display: flex; justify-content: space-between; align-items: center;">
+	            <h:outputText value="Testfälle" styleClass="table-header"/>
+	            <p:commandButton value="Testfall hinzufügen" icon="pi pi-plus-circle" action="#{testcaseController.editNewTestcase}" rendered="#{facesContext.viewRoot.viewId eq '/requirement-details.xhtml' and userController.currentUser.testcaseAuthor}" />
+	        </h:panelGroup>
+	    </f:facet>
+       	<p:ajax event="rowSelect" listener="#{testcaseController.onRowSelect}" />
+       	
+		<p:column headerText="ID">
+           	<h:outputText value="#{testcase.id}" />
+       	</p:column>
+       
+       	<p:column headerText="Titel">
+           	<h:outputText value="#{testcase.title}" />
+       	</p:column>
+       
+       	<p:column headerText="Autor">
+           	<h:outputText value="#{testcase.author}" />
+       	</p:column>
+       
+       	<p:column headerText="Ergebnis">
+           	<h:outputText value="#{testcase.result}" />
+       	</p:column>
+       
+       	<p:column headerText="Anforderungs ID">
+           	<h:outputText value="#{testcase.requirement.id}" />
+       	</p:column>
+       
+       	<p:column headerText="Testfall ID">
+           	<h:outputText value="#{testcase.testrun.id}" />
+       	</p:column>
+	</p:dataTable>
+</ui:composition>

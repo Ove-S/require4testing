@@ -13,8 +13,10 @@
 		<header>
 			<ui:include src="navbar.xhtml"/>
 		</header>
-		<main>
-			<h:outputText value="Testfälle" />
-		</main>
+	    <main>
+	    	<p:card>
+				<ui:include src="testcase-table.xhtml" />
+	    	</p:card>
+        </main>
 	</h:body>
 </html>
