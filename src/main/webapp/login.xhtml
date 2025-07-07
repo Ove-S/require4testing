@@ -9,6 +9,38 @@
 	    <title>Require4Testing Login</title>
 	</h:head>
 	<h:body>
-		<h:outputText value="Login" />
+		<main>
+		    <h:form>
+		    	<h:messages globalOnly="true" layout="list" style="color:red;"/>
+			    <p:card styleClass="login-form">
+			    	<f:facet name="title">Login</f:facet>
+			    	
+				    <span class="ui-float-label">
+						<p:inputText styleClass="login-input" id="email" value="#{loginController.email}" required="true">
+							<f:event type="postValidate" listener="#{loginController.postValidateEmail}"/>
+						</p:inputText>
+						<p:outputLabel for="@previous" value="E-Mail"/>
+				   	</span>
+				   	
+				   	<h:panelGroup layout="block" styleClass="form-error-wrapper">
+					    <h:message for="email" styleClass="form-error" />
+					    <h:outputText value=" " rendered="#{facesContext.getMessageList('form:email').isEmpty()}" />
+					</h:panelGroup>
+				   	
+				   	<span class="ui-float-label">
+			            <p:password styleClass="login-input" id="password" value="#{loginController.password}" feedback="false" validator="#{loginController.validateLogin}" required="true"/>
+			            <p:outputLabel for="password" value="Passwort" />
+			        </span>
+			        
+			        <h:panelGroup layout="block" styleClass="form-error-wrapper">
+					    <h:message for="password" styleClass="form-error" />
+					    <h:outputText value=" " rendered="#{facesContext.getMessageList('form:password').isEmpty()}" />
+					</h:panelGroup>
+			        
+			        <p class="error"><h:outputText value="#{loginController.failureMessage}"/></p>
+				    <p:commandButton icon="pi pi-sign-in" value="Login" action="#{loginController.login}" update="@form"/>
+			    </p:card>
+		    </h:form>
+		</main>
 	</h:body>
 </html>

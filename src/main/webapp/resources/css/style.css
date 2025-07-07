@@ -1,1 +1,45 @@
 @charset "UTF-8";
+
+body{
+	margin: 0;
+}
+
+
+main {
+	min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+	background-image: linear-gradient(to top, #cfdfe6, #5e7c87);
+	padding: 2rem;
+}
+
+
+/* Schriftart überall verändern (außer für Primeicons) */
+* :not(.pi):not([class*="pi-"]) {
+	font-family: Roboto, Sans-serif !important;
+}
+
+
+/* Login */
+.login-form {
+	width: 26rem !important;
+	display:flex;
+	justify-content: center;
+}
+
+.login-input {
+	width: 22rem !important;
+}
+
+.form-error {
+    font-size: 0.8rem;
+    color: #d32f2f;
+    margin-top: 0.2rem;
+}
+
+/* Reserviert Platz für die Fehlermeldungen */
+.form-error-wrapper {
+    min-height: 1.2rem;
+}
