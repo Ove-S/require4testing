@@ -13,8 +13,36 @@
 		<header>
 			<ui:include src="navbar.xhtml"/>
 		</header>
-		<main>
-			<h:outputText value="Testläufe" />
-		</main>
+	    <main>
+	    	<h:form>
+	    		<p:card>   
+			        <p:dataTable var="testrun" value="#{testrunController.testruns}" rowKey="#{testrun.id}" selectionMode="single" scrollable="true" scrollHeight="300" scrollRows="20" liveScroll="true" >
+			        	<f:facet name="header">
+				            <h:panelGroup layout="block" style="display: flex; justify-content: space-between; align-items: center;">
+					            <h:outputText value="Testläufe" styleClass="table-header"/>
+					            <p:commandButton value="Testlauf hinzufügen" icon="pi pi-plus-circle" action="#{testrunController.editNewTestrun}" rendered="#{userController.currentUser.testmanager}" />
+					        </h:panelGroup>
+					    </f:facet>
+			        	<p:ajax event="rowSelect" listener="#{testrunController.onRowSelect}" />
+			        	
+		        		<p:column headerText="ID">
+			                <h:outputText value="#{testrun.id}" />
+			            </p:column>
+			            
+			            <p:column headerText="Titel">
+			                <h:outputText value="#{testrun.title}" />
+			            </p:column>
+			            
+			            <p:column headerText="Autor">
+			                <h:outputText value="#{testrun.author}" />
+			            </p:column>
+			            
+  			            <p:column headerText="Tester">
+			                <h:outputText value="#{testrun.tester.fullName}" />
+			            </p:column>
+		        	</p:dataTable>
+	        	</p:card>
+	        </h:form>
+        </main>
 	</h:body>
 </html>
