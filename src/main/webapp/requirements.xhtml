@@ -13,8 +13,32 @@
 		<header>
 			<ui:include src="navbar.xhtml"/>
 		</header>
-		<main>
-			<h:outputText value="Anforderungen" />
-		</main>
+	    <main>
+	    	<h:form>
+	    		<p:card>
+			        <p:dataTable var="requirement" value="#{requirementController.requirements}" rowKey="#{requirement.id}" selectionMode="single" scrollable="true" scrollHeight="250" scrollRows="20" liveScroll="true" >
+	        		    <f:facet name="header">
+			                <h:panelGroup layout="block" style="display: flex; justify-content: space-between; align-items: center;">
+					            <h:outputText value="Anforderungen" styleClass="table-header"/>
+					            <p:commandButton value="Anforderung hinzufügen" icon="pi pi-plus-circle" action="#{requirementController.editNewRequirement}" rendered="#{userController.currentUser.requirementsEngineer}" />
+					        </h:panelGroup>
+					    </f:facet>
+			        	<p:ajax event="rowSelect" listener="#{requirementController.onRowSelectRequirement}" />
+			        	
+			            <p:column headerText="ID">
+			                <h:outputText value="#{requirement.id}" />
+			            </p:column>
+			            
+			            <p:column headerText="Titel">
+			                <h:outputText value="#{requirement.title}" />
+			            </p:column>
+			       		
+			            <p:column headerText="Autor">
+			                <h:outputText value="#{requirement.author}" />
+			            </p:column>
+		        	</p:dataTable>
+        		</p:card>
+        	</h:form>
+	    </main>
 	</h:body>
 </html>
