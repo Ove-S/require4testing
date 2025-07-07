@@ -10,14 +10,25 @@
 			? requirementController.tempRequirement.testcases
 			: facesContext.viewRoot.viewId eq '/testcases.xhtml'
 				? testcaseController.testcases
-				: ''}" 
+				: facesContext.viewRoot.viewId eq '/testrun-details.xhtml'
+					? testrunController.tempTestrun.testcases
+					: ''}" 
        	rowKey="#{testcase.id}" selectionMode="single" scrollable="true" 
        	scrollHeight="300" scrollRows="20" liveScroll="true" >
        	
        	<f:facet name="header">
             <h:panelGroup layout="block" style="display: flex; justify-content: space-between; align-items: center;">
 	            <h:outputText value="Testfälle" styleClass="table-header"/>
-	            <p:commandButton value="Testfall hinzufügen" icon="pi pi-plus-circle" action="#{testcaseController.editNewTestcase}" rendered="#{facesContext.viewRoot.viewId eq '/requirement-details.xhtml' and userController.currentUser.testcaseAuthor}" />
+	            <p:commandButton
+	            	value="Testfall hinzufügen"
+	            	icon="pi pi-plus-circle"
+	            	action="#{testcaseController.editNewTestcase}"
+	            	rendered="#{facesContext.viewRoot.viewId eq '/requirement-details.xhtml' and userController.currentUser.testcaseAuthor}" />
+            	<p:commandButton 
+	            	value="Testfall hinzufügen" 
+            		icon="pi pi-plus-circle"
+            		action="#{testcaseController.selectTestcase}"
+            		rendered="#{facesContext.viewRoot.viewId eq '/testrun-details.xhtml' and userController.currentUser.testmanager}" />
 	        </h:panelGroup>
 	    </f:facet>
        	<p:ajax event="rowSelect" listener="#{testcaseController.onRowSelect}" />

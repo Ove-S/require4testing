@@ -29,4 +29,23 @@ public class TestcaseDAO {
 		return testcase;
 	}
 	
+	// Gibt alle Testfälle zurück die noch keinem Testlauf hinzugefügt wurden.
+	public List<Testcase> findSelectable() {
+		EntityManager em = EntityManagerFactoryCreator.emf.createEntityManager();
+		Query abfrage = em.createQuery("SELECT t FROM Testcase t WHERE t.testrun = null");
+		List<Testcase> testcases = abfrage.getResultList();
+		em.close();
+		return testcases;
+	}
+	
+	public Testrun addToTestrun(Testrun testrun) {
+		EntityManager em = EntityManagerFactoryCreator.emf.createEntityManager();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		testrun = em.merge(testrun);
+        t.commit();
+        em.close();
+        return testrun;
+	}
+	
 }

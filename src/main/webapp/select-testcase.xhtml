@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<link rel="icon" type="image/png" href="#{resource['images/require4testing-favicon.png']}" />
+		<h:outputStylesheet library="css" name="style.css" />
+		<h:outputText value="#{loginController.checkLogin()}"/>
+	    <title>Require4Testing Testfall auswählen</title>
+	</h:head>
+	<h:body>
+		<header>
+			<ui:include src="navbar.xhtml"/>
+		</header>
+	    <main>
+	    	<h:form>
+	    		<p:card>
+			        <p:dataTable var="testcase" value="#{testcaseController.selectableTestcases}" rowKey="#{testcase.id}" selectionMode="single" scrollable="true" scrollHeight="300" scrollRows="20" liveScroll="true" >
+			        	<f:facet name="header">
+				            <h:outputText value="Testfälle" styleClass="table-header" />
+					    </f:facet>
+			        	<p:ajax event="rowSelect" listener="#{testcaseController.onTestcaseSelect}" />
+			        	
+		        		<p:column headerText="ID">
+			                <h:outputText value="#{testcase.id}" />
+			            </p:column>
+			            
+			            <p:column headerText="Titel">
+			                <h:outputText value="#{testcase.title}" />
+			            </p:column>
+			            
+			            <p:column headerText="Autor">
+			                <h:outputText value="#{testcase.author}" />
+			            </p:column>
+			            
+   			            <p:column headerText="Ergebnis">
+			                <h:outputText value="#{testcase.result}" />
+			            </p:column>
+			            
+  			            <p:column headerText="Anforderungs ID">
+			                <h:outputText value="#{testcase.requirement.id}" />
+			            </p:column>
+		        	</p:dataTable>
+	            	<div style="margin-top: 2rem" >
+	            		<p:commandButton value="Zurück" icon="pi pi-arrow-circle-left" action="#{navigator.back}" immediate="true" />
+	            	</div>	
+	        	</p:card>
+	        </h:form>
+        </main>
+   	</h:body>
+</html>

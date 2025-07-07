@@ -42,6 +42,10 @@
 	                    <p:outputLabel for="tester" value="Tester" />
    						<p:inputText id="tester" value="#{testrunController.tempTestrun.tester.fullName}"  disabled="true" />
 	                </div>
+	                
+   	                <h:panelGroup rendered="#{not empty testrunController.tempTestrun.id}">
+						<ui:include src="testcase-table.xhtml" />
+					</h:panelGroup>
 					
 	            	<div style="margin-top: 2rem" >
 	            		<p:commandButton value="Zurück" icon="pi pi-arrow-circle-left" action="#{navigator.showTestruns}" immediate="true" />

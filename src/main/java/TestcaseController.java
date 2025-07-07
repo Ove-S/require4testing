@@ -19,6 +19,7 @@ public class TestcaseController implements Serializable {
 	private TestcaseDAO testcaseDAO;
 	private List<Testcase> testcases = new ArrayList<Testcase>();
 	private Testcase tempTestcase;
+	private List<Testcase> selectableTestcases = new ArrayList<Testcase>();
 
 	@Inject
 	Navigator navigator;
@@ -28,6 +29,9 @@ public class TestcaseController implements Serializable {
 	
 	@Inject
 	UserController userController;
+	
+	@Inject
+	TestrunController testrunController;
 
 	
 	public TestcaseController() {
@@ -48,6 +52,14 @@ public class TestcaseController implements Serializable {
 
 	public void setTempTestcase(Testcase tempTestcase) {
 		this.tempTestcase = tempTestcase;
+	}
+	
+    public List<Testcase> getSelectableTestcases() {
+		return testcaseDAO.findSelectable();
+	}
+
+	public void setSelectableTestcases(List<Testcase> selectableTestcases) {
+		this.selectableTestcases = selectableTestcases;
 	}
 	
 
@@ -87,6 +99,19 @@ public class TestcaseController implements Serializable {
     	}
     	return navigator.getPreviousPage();
     }
+    
+	public String selectTestcase() {
+		navigator.setPreviousPage("testrun-details.xhtml?faces-redirect=true");
+		return "select-testcase.xhtml?faces-redirect=true";
+	}
 	
+	public void onTestcaseSelect(SelectEvent<Testcase> event) throws IOException {
+		tempTestcase = event.getObject();
+		tempTestcase.setTestrun(testrunController.getTempTestrun());
+		testrunController.getTempTestrun().getTestcases().add(tempTestcase);
+		
+		testrunController.setTempTestrun(testcaseDAO.addToTestrun(testrunController.getTempTestrun()));
+        FacesContext.getCurrentInstance().getExternalContext().redirect("testrun-details.xhtml");
+    }
 	
 }
