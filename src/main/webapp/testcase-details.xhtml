@@ -40,7 +40,7 @@
 	     
 	                <div class="form-input">
 	                    <p:outputLabel for="result" value="Ergebnis" />
-   						<p:inputText id="result" value="#{testcaseController.tempTestcase.result}"  disabled="true" >
+   						<p:inputText id="result" value="#{testcaseController.tempTestcase.result}"  disabled="#{testcaseController.tempTestcase.testrun.tester.fullName ne userController.currentUser.fullName}" >
    							<f:event type="postValidate" listener="#{testcaseController.postValidateTempTestcaseResult}" />
 						</p:inputText>
 	                </div>
@@ -57,7 +57,7 @@
 	            
 	            	<div style="margin-top: 2rem" >
 	            		<p:commandButton value="Zurück" icon="pi pi-arrow-circle-left" action="#{navigator.back}" immediate="true" />
-		            	<p:commandButton styleClass="save-btn" value="Speichern" icon="pi pi-check-circle" action="#{testcaseController.addTestcase}" rendered="#{userController.currentUser.testcaseAuthor}" />
+		            	<p:commandButton styleClass="save-btn" value="Speichern" icon="pi pi-check-circle" action="#{testcaseController.addTestcase}" rendered="#{userController.currentUser.testcaseAuthor  or testcaseController.tempTestcase.testrun.tester.fullName eq userController.currentUser.fullName}" />
 	            	</div>			            	
 	        	</p:card>
 	        </h:form>
