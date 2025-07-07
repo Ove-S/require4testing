@@ -69,6 +69,16 @@ public class TestrunController implements Serializable {
         tempTestrun = event.getObject();
         FacesContext.getCurrentInstance().getExternalContext().redirect("testrun-details.xhtml");
     }
-
 	
+	public String selectTester() {
+		navigator.setPreviousPage("testrun-details.xhtml?faces-redirect=true");
+		return "select-tester.xhtml?faces-redirect=true";
+	}
+	
+	public void onUserSelect(SelectEvent<User> event) throws IOException {
+        tempTestrun.setTester(event.getObject());
+        testrunDAO.add(tempTestrun);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("testrun-details.xhtml");
+    }
+
 }
