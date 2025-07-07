@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:form>
+ 		<div class="nav">
+ 			<div class="nav-content">
+ 				<h:graphicImage
+ 					styleClass="nav-logo"
+ 					name="require4testing-logo.png"
+ 					library="images"
+ 					alt="Logo" />
+ 					
+				<h:link 
+					value="Anforderungen"
+					styleClass=" nav-link #{facesContext.viewRoot.viewId eq '/requirements.xhtml' ? 'active' : ''}"
+					rendered="#{facesContext.viewRoot.viewId ne '/login.xhtml'}"
+					outcome="requirements" />
+				<h:link
+					value="Testläufe"
+					styleClass="nav-link #{facesContext.viewRoot.viewId eq '/testruns.xhtml' ? 'active' : ''}"
+					rendered="#{facesContext.viewRoot.viewId ne '/login.xhtml'}"
+					outcome="testruns" />
+				<h:link
+					value="Testfälle"
+					styleClass="nav-link #{facesContext.viewRoot.viewId eq '/testcases.xhtml' ? 'active' : ''}"
+					rendered="#{facesContext.viewRoot.viewId ne '/login.xhtml'}"
+					outcome="testcases" />
+ 					
+       			<h:commandLink
+       				styleClass="nav-link nav-link-end"
+       				rendered="#{facesContext.viewRoot.viewId ne '/login.xhtml'}"
+       				action ="#{loginController.logout}" >
+   					<i class="pi pi-sign-out"></i>
+	        	 	Logout
+		        </h:commandLink>
+		        <h:link
+   					styleClass="nav-link nav-link-end active"
+   					rendered="#{facesContext.viewRoot.viewId eq '/login.xhtml'}"
+       				outcome="login" >
+   					<i class="pi pi-sign-in"></i>
+	        	 	Login
+		    	</h:link>
+       		</div>	
+    	</div>
+    </h:form>
+</ui:composition>

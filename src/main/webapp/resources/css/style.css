@@ -6,7 +6,8 @@ body{
 
 
 main {
-	min-height: 100vh;
+	min-height: calc(100vh - 80px);
+	margin-top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,4 +43,51 @@ main {
 /* Reserviert Platz für die Fehlermeldungen */
 .form-error-wrapper {
     min-height: 1.2rem;
+}
+
+
+/**
+	Navbar
+*/
+.nav {
+	display: flex;
+	position: fixed;
+    top: 0;
+    width: 100%;
+	background-color: #3c5058;
+    align-items: center;
+    z-index: 1;
+}
+
+.nav-content {
+	display: flex;
+    width: 90vw;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+ 	justify-content: flex-start;
+    align-items: center;
+}
+
+.nav-logo {
+	height: 80px;
+	padding: 0.5rem;
+}
+
+.nav-link {
+  color: #f2f2f2;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.active,
+.nav-link:hover {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.nav-link-end {
+	margin-left: auto;
 }
